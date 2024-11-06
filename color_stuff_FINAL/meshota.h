@@ -8,9 +8,10 @@
 #define Wifi_SSID "{SSID}"
 #define Wifi_PASSWORD "{password}"
 
-String IP = "{insert IP HERE}"
+String IP = "{insert IP HERE}";
 //OTA update setup
-static const char *url = "http://"+IP+":8000/color_stuff_FINAL.ino.bin"; //state url of your firmware image
+String x = "http://"+IP+":8000/color_stuff_FINAL.ino.bin";
+static const char *url = x.c_str(); //state url of your firmware image
 static const char *server_certificate = "";
 static HttpsOTAStatus_t otastatus;
 
@@ -58,7 +59,8 @@ void RC(uint32_t from, String &msg ){
   if(msg.indexOf("update")!=-1)
     triggerUpdate();
   else if(msg.indexOf("NEWIP: ")!=-1 && msg.indexOf(" ENDIP")!=0)// Send a message like "NEWIP: 199.168.11 ENDIP"
-    IP=msg.substring(msg.indexOf("NEW IP: ")+"NEWIP: ".length(),msg.indexOf(" ENDIP"))
+    IP = msg.substring(msg.indexOf("NEW IP: ") + strlen("NEW IP: "), msg.indexOf(" ENDIP"));
+
 
 }
 void changedConnectionCallback() {//seems to only run when connection gets added

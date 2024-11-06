@@ -54,6 +54,8 @@ void setup() {
   otaSetup();
 }
 uint16_t lastColor = 0;
+String colorPattern[4]; 
+int listCounter=0;
 // Loop function. See how I'm detecting the color.
 void loop() {
   //delay(100);
@@ -210,6 +212,8 @@ void loop() {
     //wirelessSerial(printStr);
     
   }
+  colorPattern[listCounter]= lastColorString;
+  listCounter++;
   lastColor = color_index;
   otaLoop();
 }
